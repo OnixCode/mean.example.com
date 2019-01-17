@@ -13,7 +13,7 @@ var app = express();
 var config = require('./config.dev');
 
 mongoose.connect(config.mongodb, { useNewUrlParser: true });
-console.log(mongoose);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
