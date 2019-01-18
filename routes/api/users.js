@@ -1,9 +1,10 @@
+//The purpose of this page is to define routes to an endpoint
 var express = require('express');
 var router = express.Router();
 
 var Users = require('../../models/users');//Users references a table
 
-router.get('/', function(req, res, next) {//request, response and next
+router.get('/', function(req, res, next) {//request, response and next to return all users
   Users.find({},function(err, users){ //{} empty JSON object
     if(err){
      return res.json({'success':false, 'error': err});//'' are variables
@@ -12,7 +13,7 @@ router.get('/', function(req, res, next) {//request, response and next
   });
 });
 
-router.get('/:userId', function(req,res){
+router.get('/:userId', function(req,res){ //return one user
 
   var userId = req.params.userId;//get parameters
    Users.findOne({'_id':userId}, function(err, user){//findOne returns the first match and
@@ -43,11 +44,7 @@ router.get('/:userId', function(req,res){
   });
 });
 
-router.get('/', function(req, res, next) {
-  res.json({success: true});
-});
-
-router.put('/', function(req, res){
+router.put('/', function(req, res){//an edit function to splice data together
 
   Users.findOne({'_id': req.body._id}, function(err, user){
 

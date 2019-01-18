@@ -1,3 +1,4 @@
+// The purpose of this page is section that links to the database
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var uniqueValidator = require('mongoose-unique-validator');
@@ -19,7 +20,20 @@ var Users = new Schema({
   admin: {
     type: Boolean,
     default: false
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  modified: {
+    type: Date,
+    default: Date.now
   }
+});
+
+Users.pre('save', function(next){
+  this.modified = new Date().toISOString();
+  next();
 });
 
 //Add unique validation properties to the model

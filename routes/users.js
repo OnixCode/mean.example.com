@@ -1,3 +1,4 @@
+//The purpose of this page is to relate to users in a traditional webpage
 var express = require('express');
 var router = express.Router();
 
