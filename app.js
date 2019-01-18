@@ -11,6 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var Users = require('./models/users');
 var apiAuthRouter = require('./routes/api/auth');
+var authRouter = require('./routes/auth');
 //defined routing files
 var apiUsersRouter = require('./routes/api/users');
 var indexRouter = require('./routes/index');
@@ -70,6 +71,7 @@ passport.deserializeUser(function(user, done){
 
 //when we hit an endpoint, this is the module we load
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/users', usersRouter);
