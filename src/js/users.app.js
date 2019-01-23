@@ -63,11 +63,40 @@ var usersApp = (function() {
   return{
     load: function(){
       viewUsers();
+
+      let hash = window.location.hash;
+      let hashArray = hash.split('-');
+
+      switch(hashArray[0]){
+        case '#create':
+          console.log('CREATE');
+          break;
+
+        case '#view':
+          console.log('VIEW');
+          break;
+
+        case '#edit':
+          console.log('EDIT');
+          break;
+
+        case '#delete':
+          console.log('DELETE');
+          break;
+
+        default:
+          viewUsers();
+          break;
+      }
     }
   }
 })();
 
 usersApp.load();
+
+window.addEventListener("hashchange",function(){
+  usersApp.load();
+});
 
       /*
 
@@ -345,33 +374,6 @@ usersApp.load();
       deleteUser(id);
     },
 
-    load: function(){
-      let hash = window.location.hash;
-      let hashArray = hash.split('-');
-
-      switch(hashArray[0]){
-        case '#create':
-          createUser();
-          break;
-
-        case '#view':
-          viewUser(hashArray[1]);
-          break;
-
-        case '#edit':
-          editUser(hashArray[1]);
-          break;
-
-        case '#delete':
-          deleteView(hashArray[1]);
-          break;
-
-        default:
-          viewUsers();
-          break;
-      }
-    }
-  }
 
 })();
 
