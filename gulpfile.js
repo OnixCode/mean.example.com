@@ -14,7 +14,8 @@ gulp.task('default', ['watch']);
 gulp.task('build-js', [
   'build-main-js',
   'build-auth-js',
-  'build-user-js'
+  'build-user-js',
+  'build-articles-js'
 ]);
 
 //Compile all CSS tasks
@@ -44,6 +45,18 @@ gulp.task('build-main-js', function() {
   .pipe(gulp.dest('public/dist/js'));
 
   return merge(authApp);
+});
+
+gulp.task('build-articles-js', function() {
+
+  var articleApp = gulp.src([
+    'src/js/articles.app.js',
+  ])
+  .pipe(concat('articles.app.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('public/dist/js'));
+
+  return merge(articleApp);
 });
 
 gulp.task('build-users-js', function() {
