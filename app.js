@@ -69,6 +69,10 @@ passport.deserializeUser(function(user, done){
   done(null, user);
 });
 
+app.use(function(req,res,next){
+  res.locals.session =req.session;
+  next();
+});
 //when we hit an endpoint, this is the module we load
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
