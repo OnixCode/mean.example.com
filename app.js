@@ -71,6 +71,13 @@ passport.deserializeUser(function(user, done){
 
 app.use(function(req,res,next){
   res.locals.session =req.session;
+
+  res.locals.showLogin= true;
+  if(req.session.passport){
+    if(req.session.passport.user){
+      res.locals.showLogin = false;
+    }
+  }
   next();
 });
 //when we hit an endpoint, this is the module we load

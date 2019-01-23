@@ -145,6 +145,16 @@ var validate = (function() {
 
   }
 
+  function validateEmail() {
+    let email = document.getElementById('email');
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(String(email.value).toLowerCase())){
+      email.setCustomValidity("");
+    } else {
+      email.setCustomValidity("Invalid Email (xx@xx.xx)");
+    }
+  }
+
   return {
     registrationForm: function(){
       document.querySelector('#registrationForm input[type="submit"]').addEventListener(
