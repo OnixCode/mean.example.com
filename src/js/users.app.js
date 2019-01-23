@@ -1,15 +1,6 @@
 var usersApp = (function() {
 
-  return{
-    load: function(){
-      alert('LOADED');
-    }
-  }
-})();
-
-usersApp.load();
-
-  /*function viewUsers(){
+  function viewUsers(){
 
     let uri = `${window.location.origin}/api/users`;
     let xhr = new XMLHttpRequest();
@@ -23,8 +14,21 @@ usersApp.load();
     xhr.send();
 
     xhr.onload = function(){
-      let app = document.getElementById('app');
       let data = JSON.parse(xhr.response);
+      console.log(data);
+    }
+  }
+  return{
+    load: function(){
+      viewUsers();
+    }
+  }
+})();
+
+usersApp.load();
+
+      /*let app = document.getElementById('app');
+
       let users = data.users;
       let table = '';
       let rows = '';
