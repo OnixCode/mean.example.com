@@ -4,6 +4,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/app', function(req, res, next) {
+  console.log('please');
   res.render('articles/app', {title:'Article Management'});
 });
 

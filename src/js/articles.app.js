@@ -1,3 +1,23 @@
+var articlesApp = (function() {
+
+  return {
+    load: function(){
+      alert('LOADED');
+    }
+  }
+
+})();
+
+articlesApp.load();
+
+
+
+
+
+
+
+
+
 /*var usersApp = (function() {
 
   function viewUsers(){

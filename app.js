@@ -13,6 +13,7 @@ var Users = require('./models/users');
 var apiAuthRouter = require('./routes/api/auth');
 var authRouter = require('./routes/auth');
 //defined routing files
+var articlesRouter = require('./routes/articles');
 var apiUsersRouter = require('./routes/api/users');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -134,6 +135,7 @@ app.use('/auth', authRouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/users', usersRouter);
+app.use('/articles', articlesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
