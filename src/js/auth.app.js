@@ -1,3 +1,5 @@
+//import { ValidationError } from "mongoose";
+
 var authApp = (function() {
 
   function loginForm(){
@@ -112,6 +114,34 @@ var authApp = (function() {
     load: function(){
       registrationForm();
       postRequest('registrationForm', '/api/auth/register');
+      validationError.registrationForm();
+    }
+  }
+
+})();
+
+var validate = (function() {
+
+  function confirmPasswordMatch() {
+
+    let pw = document.getElementById('password');
+    let cpw = document.getElementById('confirm_password');
+
+    if(pw.value !== cpw.value){
+      cpw.setCustomValidity("Passwords do not match");
+    } else {
+      cpw.setCustomValidity("");
+    }
+
+  }
+
+  return {
+    registrationForm: function(){
+      document.querySelector('#registrationForm input[type="submit"]').addEventListener(
+        'click',
+        function(){
+        confirmPasswordMatch();
+      });
     }
   }
 
