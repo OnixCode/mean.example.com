@@ -1,6 +1,15 @@
 var usersApp = (function() {
 
-  function viewUsers(){
+  return{
+    load: function(){
+      alert('LOADED');
+    }
+  }
+})();
+
+usersApp.load();
+
+  /*function viewUsers(){
 
     let uri = `${window.location.origin}/api/users`;
     let xhr = new XMLHttpRequest();
@@ -20,8 +29,8 @@ var usersApp = (function() {
       let table = '';
       let rows = '';
 
-      //Loop each user record into it's own HTML table row, each user should
-      //have a link a user view
+      Loop each user record into it's own HTML table row, each user should
+      have a link a user view
       for (let i=0; i<users.length; i++) {
         rows = rows + `<tr>
           <td>
@@ -32,8 +41,8 @@ var usersApp = (function() {
         </tr>`;
       }
 
-      //Create a users panel, add a table to the panel, inject the rows into the
-      //table
+      Create a users panel, add a table to the panel, inject the rows into the
+      table
       table = `<div class="card">
         <div class="card-header clearfix">
           <h2 class="h3 float-left">Users</h2>
@@ -55,7 +64,7 @@ var usersApp = (function() {
         </div>
       </div>`;
 
-      //Append the HTML to the #app
+      Append the HTML to the #app
       app.innerHTML = table;
     }
   }
@@ -364,3 +373,4 @@ usersApp.load();
 window.addEventListener("hashchange", function(){
   usersApp.load();
 });
+*/
