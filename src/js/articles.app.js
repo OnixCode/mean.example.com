@@ -105,6 +105,41 @@ var articlesApp = (function() {
     app.innerHTML=form;
   }
 
+  function viewArticle(id){
+
+    let uri = `${window.location.origin}/api/articles/${id}`;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', uri);
+
+    xhr.setRequestHeader(
+      'Content-Type',
+      'application/json; charset=UTF-8'
+    );
+
+    xhr.send();
+
+    xhr.onload = function(){
+      let app = document.getElementById('app');
+      let data = JSON.parse(xhr.response);
+      let card = '';
+
+      card = `<div class="card">
+        <div class="card-header clearfix">
+          <h2 class="h3 float-left">${data.article.title}</h2>
+          <div class="float-right">
+            <a href="#edit-${data.article._id}" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>${data.article.description}</div>
+          <div>${data.article.published}</div>
+        </div>
+      </div>`;
+
+      app.innerHTML = card;
+    }
+  }
+
   function postRequest(formId, url){
     let form = document.getElementById(formId);
     form.addEventListener('submit', function(e){
@@ -149,8 +184,8 @@ var articlesApp = (function() {
         break;
 
         case '#view':
-          console.log('VIEW');
-          break;
+          viewArticle(hashArray[1]);
+        break;
 
         case '#edit':
           console.log('EDIT');
