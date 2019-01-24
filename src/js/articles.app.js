@@ -25,7 +25,7 @@ var articlesApp = (function() {
       for (let i=0; i<articles.length; i++) {
         rows = rows + `<tr>
           <td>
-            <a href="#view-${articles[i]['_slug']}">${articles[i]['title']}</a>
+            <a href="#view-${articles[i]['_id']}">${articles[i]['title']}</a>
           </td>
           <td>${articles[i]['description']}</td>
           <td>${articles[i]['published']}</td>
@@ -61,13 +61,40 @@ var articlesApp = (function() {
   }
   return {
     load: function(){
-      viewArticle();
+      let hash = window.location.hash;
+      let hashArray = hash.split('-');
+
+      switch(hashArray[0]){
+        case '#create':
+          console.log('CREATE');
+          break;
+
+        case '#view':
+          console.log('VIEW');
+          break;
+
+        case '#edit':
+          console.log('EDIT');
+          break;
+
+        case '#delete':
+          console.log('DELETE');
+          break;
+
+        default:
+          viewArticles();
+          break;
+      }
     }
   }
 
 })();
 
 articlesApp.load();
+
+window.addEventListener("hashchange", function(){
+  articlesApp.load();
+});
 
 
 
