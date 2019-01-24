@@ -140,7 +140,72 @@ var articlesApp = (function() {
     }
   }
 
-  function postRequest(formId, url){
+  function editArticle(id){
+
+    let uri = `${window.location.origin}/api/articles/${id}`;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', uri);
+
+    xhr.setRequestHeader(
+      'Content-Type',
+      'application/json; charset=UTF-8'
+    );
+
+    xhr.send();
+
+    xhr.onload = function(){
+      let app = document.getElementById('app');
+      let data = JSON.parse(xhr.response);
+
+      var form =  `
+      <div class="card">
+        <div class="card-header clearfix">
+          <h2 class="h3 float-left">Edit</h2>
+          <div class="float-right">
+            <a href="#" class="btn btn-primary">Cancel</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <form id="editArticle" class="card-body">
+            <input type="hidden" id="_id" name="_id" value="${data.article._id}">
+            <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" class="form-control" value="${data.article.title}" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" class="form-control" value="${data.article.description}" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="published">Published</label>
+                <input type="text" id="published" name="published" class="form-control" value="${data.article.published}" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="date" id="modified" name="modified" class="form-control" value="${data.article.modified}" required>
+              </div>
+            </div>
+            <div class="text-right">
+              <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-sm-block">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div>
+        <a href="#delete-${data.article._id}" class=text-danger">Delete</a>
+      </div>
+    `;
+
+    app.innerHTML=form;
+    processRequest('editArticle', '/api/users', 'PUT');
+    }
+  }
+
+  function processRequest(formId, url, method){
     let form = document.getElementById(formId);
     form.addEventListener('submit', function(e){
       e.preventDefault();
@@ -148,7 +213,7 @@ var articlesApp = (function() {
       let formData = new FormData(form);
       let uri = `${window.location.origin}${url}`;
       let xhr = new XMLHttpRequest();
-      xhr.open('POST', uri);
+      xhr.open(method, uri);
 
       xhr.setRequestHeader(
         'Content-Type',
@@ -172,6 +237,48 @@ var articlesApp = (function() {
     });
   }
 
+  function deleteView(id){
+
+    let uri = `${window.location.origin}/api/articles/${id}`;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', uri);
+
+    xhr.setRequestHeader(
+      'Content-Type',
+      'application/json; charset=UTF-8'
+    );
+
+    xhr.send();
+
+    xhr.onload = function(){
+      let app = document.getElementById('app');
+      let data = JSON.parse(xhr.response);
+      let card = '';
+
+      card = `<div class="card bg-transparent border-danger text-danger bg-danger">
+        <div class="card-header bg-transparent border-danger">
+          <h2 class="h3 text-center">Your About to Delete a User</h2>
+        </div>
+        <div class="card-body text-center">
+          <div>
+            Are you sure you want to delete
+            <strong>${data.article.title}</strong>
+          </div>
+          <div>Username: <strong>${data.article.description}</strong></div>
+          <div>Email: <strong>${data.article.published}</strong></div>
+          <div class="text-center">
+            <br>
+            <a class="btn btn-lg btn-danger text-white">
+              Yes delete ${data.article.title}
+            </a>
+          </div>
+        </div>
+      </div>`;
+
+      app.innerHTML = card;
+    }
+  }
+
   return {
     load: function(){
       let hash = window.location.hash;
@@ -180,7 +287,7 @@ var articlesApp = (function() {
       switch(hashArray[0]){
         case '#create':
           createArticle();
-          postRequest('createArticle', '/api/articles/');
+          processRequest('createArticle', '/api/articles/', 'POST');
         break;
 
         case '#view':
@@ -188,16 +295,16 @@ var articlesApp = (function() {
         break;
 
         case '#edit':
-          console.log('EDIT');
-          break;
+          editArticle(hashArray[1]);
+        break;
 
         case '#delete':
-          console.log('DELETE');
-          break;
+          deleteVies(hashArray[1]);
+        break;
 
         default:
           viewArticles();
-          break;
+        break;
       }
     }
   }
