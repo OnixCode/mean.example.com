@@ -59,6 +59,52 @@ var articlesApp = (function() {
       app.innerHTML = table;
     }
   }
+
+  function createArticle(){
+    var app = document.getElementById('app');
+
+    var form =  `
+        <div class="card">
+          <div class="card-header clearfix">
+            <h2 class="h3 float-left">Create a New Article</h2>
+            <div class="float-right">
+              <a href="#" class="btn btn-primary">Cancel</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <form id="registrationForm" class="card-body">
+              <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="title">Title</label>
+                  <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="description">Description</label>
+                  <input type="text" id="description" name="description" class="form-control" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="body">Body</label>
+                  <input type="text-area" id="body" name="body" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="published">Published</label>
+                  <input type="date" id="published" name="published" class="form-control">
+                </div>
+              </div>
+              <div class="text-right">
+                <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-sm-block">
+              </div>
+            </form>
+          </div>
+        </div>
+    `;
+
+    app.innerHTML=form;
+  }
+
   return {
     load: function(){
       let hash = window.location.hash;
@@ -66,8 +112,8 @@ var articlesApp = (function() {
 
       switch(hashArray[0]){
         case '#create':
-          console.log('CREATE');
-          break;
+          createArticle();
+        break;
 
         case '#view':
           console.log('VIEW');
