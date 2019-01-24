@@ -269,6 +269,7 @@ var articlesApp = (function() {
           <div class="text-center">
             <br>
             <a class="btn btn-lg btn-danger text-white">
+            <a onclick="articlesApp.deleteArticle('${data.article._id}');" class="btn btn-lg btn-danger text-white">
               Yes delete ${data.article.title}
             </a>
           </div>
@@ -277,6 +278,31 @@ var articlesApp = (function() {
 
       app.innerHTML = card;
     }
+  }
+
+  function deleteArticle(id){
+
+    let uri = `${window.location.origin}/api/articles/${id}`;
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE', uri);
+
+    xhr.setRequestHeader(
+      'Content-Type',
+      'application/json; charset=UTF-8'
+    );
+
+    xhr.send();
+
+    xhr.onload = function(){
+      let data = JSON.parse(xhr.response);
+      if(data.success === true){
+        window.location.hash = '#';
+      }else{
+        alert('Unknown error, the user could not be deleted');
+      }
+
+    }
+
   }
 
   return {
@@ -299,16 +325,19 @@ var articlesApp = (function() {
         break;
 
         case '#delete':
-          deleteVies(hashArray[1]);
+          deleteView(hashArray[1]);
         break;
 
         default:
           viewArticles();
         break;
       }
-    }
-  }
+    },
 
+    deleteUser: function(id){
+      deleteUser(id);
+  }
+  }
 })();
 
 articlesApp.load();
